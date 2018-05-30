@@ -1,0 +1,5 @@
+
+node_modules/
+app/back-end/configuration/mysql.js
+
+package-lock.json

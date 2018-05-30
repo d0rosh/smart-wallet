@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+			<button ng-click="ctrl.send(1)" class="btns-s">1</button>
+			<button ng-click="ctrl.send(2)" class="btns-s">2</button>
+			<button ng-click="ctrl.send(3)" class="btns-s">3</button>
+			<button ng-click="ctrl.send(4)" class="btns-s">4</button>
+			<button ng-click="ctrl.send(5)" class="btns-s">5</button>
+			<button ng-click="ctrl.send(6)" class="btns-s">6</button>
+			<button ng-click="ctrl.send(7)" class="btns-s">7</button>
+			<button ng-click="ctrl.send(8)" class="btns-s">8</button>
+			<button ng-click="ctrl.send(9)" class="btns-s">9</button>
+			<button ng-click="ctrl.send(10)" class="btns-s">10</button>
+			<button ng-click="ctrl.send(11)" class="btns-s">11</button>
+			<button ng-click="ctrl.send(12)" class="btns-s">12</button>
+			<button ng-click="ctrl.send('all')" class="btns-s">All</button>
+		</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td colspan="3">INCOMES</td>
+                    </tr>
+                    <tr>
+                        <td>Sourse</td>
+                        <td>Sum incomes</td>
+                        <td>Procent</td>
+                    </tr>
+                </thead>
+                <tr ng-repeat="item in ctrl.sourse">
+                    <td>{{item._name}}</td>
+                    <td>{{item._sum}}</td>
+                    <td>{{item.procent}}</td>
+                </tr>
+                <thead>
+                    <tr>
+                        <td>Total</td>
+                        <td colspan="2">{{ctrl.total_sourse}}</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        
+        <div class="col-md-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td colspan="3">OUTCOMES</td>
+                    </tr>
+                    <tr>
+                        <td>Outcome</td>
+                        <td>Sum outcome</td>
+                        <td>Procent</td>
+                    </tr>
+                </thead>
+                <tr ng-repeat="item in ctrl.category">
+                    <td>{{item._name}}</td>
+                    <td>{{item._sum}}</td>
+                    <td>{{item.procent}}</td>
+                </tr>
+                <thead>
+                    <tr>
+                        <td>Total</td>
+                        <td colspan="2">{{ctrl.total_category}}</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        
+        <div class="col-md-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td colspan="3">SAVES</td>
+                    </tr>
+                    <tr>
+                        <td>Save</td>
+                        <td>Sum save</td>
+                        <td>Procent</td>
+                    </tr>
+                </thead>
+                <tr ng-repeat="item in ctrl.saves">
+                    <td>{{item._name}}</td>
+                    <td>{{item._sum}}</td>
+                    <td>{{item.procent}}</td>
+                </tr>
+                <thead>
+                    <tr>
+                        <td>Total</td>
+                        <td colspan="2">{{ctrl.total_saves}}</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div id="saves"></div>
+    		<div id="sourse"></div>
+    		<div id="category"></div>
+    	</div>
+    </div>
+</div>
+

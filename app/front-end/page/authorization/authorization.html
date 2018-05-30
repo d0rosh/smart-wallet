@@ -1,0 +1,95 @@
+<div class="container-fluid wrap-authorized">
+	<div class="wrapper-form">
+		<!-- back-end errors -->
+		<div class="alert alert-danger" ng-repeat="err in ctrl.errors">
+			{{err.msg}}
+		</div>
+		<!-- ***** -->
+		<!-- front-end errors -->
+
+        <!-- username field message -->
+        <div ng-messages="authorized.username.$error">
+            <div ng-if="authorized.username.$dirty">
+                <div class="alert alert-danger" ng-message="required">Username is required</div>
+                <div class="alert alert-danger" ng-message="minlength">Username must be min 5 symbol</div>
+            </div>
+        </div>
+        
+        <!-- password field message -->
+        <div ng-messages="authorized.password.$error">
+            <div ng-if="authorized.password.$dirty">
+                <div class="alert alert-danger" ng-message="required">Password is required</div>
+                <div class="alert alert-danger" ng-message-exp="['minlength', 'maxlength']">
+                    Password must be between 8-16 characters long
+                </div>
+            </div>
+        </div>
+
+        <!-- repeat password field message -->
+        <div ng-messages="authorized.rppassword.$error">
+            <div ng-if="authorized.rppassword.$dirty">
+                <div class="alert alert-danger" ng-message="required">Password is required</div>
+                <div class="alert alert-danger" ng-message="pattern">Passwords do not match</div>
+            </div>
+        </div>
+        
+        <!-- email field message -->
+        <div ng-messages="authorized.email.$error">
+            <div ng-if="authorized.email.$dirty">
+                <div class="alert alert-danger" ng-message="required">Email is required</div>
+                <div class="alert alert-danger" ng-message="pattern">Email is invalid</div>
+            </div>
+        </div>
+
+		<!-- ***** -->
+		<my-loader show="ctrl.showLoader"></my-loader>
+		<form novalidate name="authorized" ng-submit="ctrl.sendData(authorized)" ng-model="ctrl.request">
+			<input type="text"
+                ng-model-options="{ allowInvalid: true}" 
+                ng-model="ctrl.request.username" 
+                name="username"  
+                placeholder="login" 
+                ng-minlength='5'  
+                required 
+            >
+
+			<input type="password"
+                ng-model-options="{ allowInvalid: true}" 
+                ng-model="ctrl.request.password" 
+                name="password"  
+                placeholder="password" 
+                ng-minlength='5' 
+                ng-maxlength='16' 
+                required 
+            >
+
+			<input type="password"
+                ng-model-options="{ allowInvalid: true}" 
+                ng-if="ctrl.registerField" 
+                ng-model="ctrl.request.rppassword" 
+                name="rppassword"  
+                placeholder="confirm password" 
+                ng-pattern='ctrl.request.password' 
+                required
+            >
+
+			<input type="email" 
+                ng-model-options="{ allowInvalid: true}" 
+                ng-if="ctrl.registerField" 
+                ng-model="ctrl.request.email" 
+                name="email" 
+                placeholder="email" 
+                ng-pattern='/^[\w+\d+.-]+\@[\w+\d+_+]+\.[\w+\d+._]{2,3}$/' 
+                required
+            >
+
+			<button ng-disabled="authorized.$invalid" type="submit"
+            ng-class="{'button-disabled': authorized.$invalid, 'but-hover' : !authorized.$invalid}">
+                Send
+            </button>
+
+			<button type="button" ng-click="ctrl.showInput(authorized)" class="but-hover">       {{ctrl.formAction}}
+            </button>
+		</form>
+	</div>
+</div>

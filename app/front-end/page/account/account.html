@@ -1,0 +1,158 @@
+<div class="container">
+	<hint message="ctrl.hintMessage"></hint>
+	<div class="row user-info">
+		<div class="col-md-4">
+			<div class="user-avatar">
+				<img ng-src='{{userImg}}' alt="avatar" img-default>
+				<label for="avatar"><input id="avatar" type='file' ng-model='ctrl.photo.img' maxsize="5000" base-sixty-four-input></label>
+			</div>
+			<div class="downoad-avatar">
+				<span ng-show="form.files.$error.maxsize">Files must not exceed 5000 KB</span>
+				<button ng-click="ctrl.updatePhoto()">Загрузити</button>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<span ng-if="ctrl.flugUpdate" ng-model="ctrl.profile.fname">{{ ctrl.profile.fname ? 'Your name: ' + ctrl.profile.fname : 'Your name'}}</span>
+			<input ng-model-options="{ allowInvalid: true}" ng-if="!ctrl.flugUpdate" ng-model="ctrl.profile.fname" type="text" placeholder="enter name">
+			<span ng-if="ctrl.flugUpdate" ng-model="ctrl.profile.lname">{{ ctrl.profile.lname ? 'Your sure name: ' + ctrl.profile.lname : 'Your sure name'}}</span>
+			<input ng-model-options="{ allowInvalid: true}" ng-if="!ctrl.flugUpdate" ng-model="ctrl.profile.lname" type="text" placeholder="enter surname">
+			<span ng-if="ctrl.flugUpdate" ng-model="ctrl.profile.age">{{ ctrl.profile.age ? 'Your age: ' + ctrl.profile.age : 'Your age'}}</span>
+			<input ng-model-options="{ allowInvalid: true}" ng-if="!ctrl.flugUpdate" ng-model="ctrl.profile.age" type="text" placeholder="enter age">
+		</div>
+		<div class="col-md-3">
+			<button ng-click="ctrl.updateProfile()" class="btns-s">{{ctrl.nameBtn}}</button>
+			<button ng-if="!ctrl.flugUpdate" ng-click="ctrl.cancelEdit()" class="btns-s">Cancel</button>
+			<button ng-click="ctrl.deleteProfile()" class="btns-s">Delete</button>
+		</div>
+	</div>
+	<div class="row user-ability">
+		<div class="col-md-4">
+			<h1>User Source</h1>
+			<table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Name</th>
+			        <th>Action</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="sourse in ctrl.sourse">
+			        <td>{{sourse._name}}</td>
+			        <td>
+			        	<button ng-click="ctrl.editSourse(sourse)" class="btn btn-info">Edit</button>
+			        	<button ng-click="ctrl.deleteSourse(sourse)" class="btn btn-danger">Delete</button>
+			        </td>
+			      </tr>
+			    </tbody>
+			</table>
+			<form novalidate name="sourseForm">
+				<input name="sourseField" ng-model="ctrl.currentSourse._name" type="text" required quotes>
+		 		<button ng-click="ctrl.saveSourse(sourseForm)" class="btn btn-default">Save</button>
+			</form>
+		</div>
+		<div class="col-md-4">
+			<h1>User Saves</h1>
+			<table class="table table-bordered">
+			    <thead>
+			      <tr>
+		        	<th>Icon</th>
+			        <th>Name</th>
+			        <th>Action</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="saves in ctrl.saves">
+		        	<td><img ng-src={{saves.src}} alt="icon" ng-click="ctrl.editIcon(saves)"></td>
+			        <td>{{saves._name}}</td>
+			        <td>
+			        	<button ng-click="ctrl.editSaves(saves)" class="btn btn-info">Edit</button>
+			        	<button ng-click="ctrl.deleteSaves(saves)" class="btn btn-danger">Delete</button>
+			        </td>
+			      </tr>
+			    </tbody>
+			</table>
+			<form novalidate name="saveForm">
+			 	<input name="saveField" ng-model="ctrl.currentSaves._name" type="text" required quotes>
+			 	<button ng-click="ctrl.saveSaves(saveForm)" class="btn btn-default">Save</button>
+			</form>
+		</div>
+		<div class="col-md-4">
+			<h1>User Category</h1>
+			<table class="table table-bordered">
+			    <thead>
+			      <tr>
+		        	<th>Icon</th>
+			        <th>Name</th>
+			        <th>Action</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="category in ctrl.category">
+		        	<td><img ng-src={{category.src}} alt="icon" ng-click="ctrl.editIcon(category)"></td>
+			        <td>{{category._name}}</td>
+			        <td>
+			        	<button ng-click="ctrl.editCategory(category)" class="btn btn-info">Edit</button>
+			        	<button ng-click="ctrl.deleteCategory(category)" class="btn btn-danger">Delete</button>
+			        </td>
+			      </tr>
+			    </tbody>
+			</table>
+			<form novalidate name="categoryForm">
+				<input name="categoryField" ng-model="ctrl.currentCategory._name" type="text" required quotes>
+			 	<button ng-click="ctrl.saveCategory(categoryForm)" class="btn btn-default">Save</button>
+			</form> 
+		</div>
+	</div>
+
+	<!--  popap icons	-->
+	<div class="wrap-popap icons-popap" ng-if="ctrl.openIcons">
+		<div class="popap">
+			<div class="popap-content">
+				<div ng-repeat="icon in ctrl.icons">
+					<img ng-src={{::icon.src}} alt="icon" ng-click="ctrl.currentIcon = icon">
+				</div>
+			</div>
+			<div class="popap-action">
+				<button ng-click="ctrl.confirmAddIcon()" ng-disabled="!ctrl.currentIcon.id">Ok</button>
+				<button ng-click="ctrl.openIcons = false; ctrl.currentIcon = {}">Cancel</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- popap delete save -->
+	<div class="wrap-popap popap-delete-save" ng-if="ctrl.openFlug">
+		<div class="popap">
+			<form novalidate name="formDeleteSave" ng-submit="ctrl.confirmQuery(formDeleteSave)">
+				<div class="popap-content">
+					<span class="name_save">Сума на рахунку: {{ctrl.deleteObj._sum}}</span>
+					<div class="wrapper-select">
+						<select ng-model="ctrl.deleteObj.id" name="deleteSaveSelect" required> 
+							<option value="">Виберіть один варіант</option>
+							<option ng-repeat="saves in ctrl.selectedList" value="{{saves.id}}">{{saves._name}}</option>
+				        </select>
+						<span ng-if="formDeleteSave.deleteSaveSelect.$error.required && formDeleteSave.deleteSaveSelect.$touched">Потрібно вибрати</span>
+					</div>
+				</div>
+				<div class="popap-action">
+					<button ng-disabled="formDeleteSave.$invalid"
+					ng-class="{dangerColor: !formDeleteSave.$valid}">Ok</button>
+					<button ng-click="ctrl.cancalQuery()">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- ******** -->
+	<!-- popap delete user -->
+	<div class="wrap-popap popap-delete-user" ng-if="ctrl.userFlug">
+		<div class="popap">
+			<div class="popap-content">
+				<span>Ви впевнені?</span>
+			</div>
+			<div class="popap-action">
+				<button ng-click="ctrl.confirmDeleteUser()">Ok</button>
+				<button ng-click="ctrl.cancalDeleteUser()">Cancel</button>
+			</div>
+		</div>
+	</div>
+	<!-- ******** -->
+</div>

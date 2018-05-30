@@ -1,0 +1,33 @@
+{
+  "name": "appLgs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon app/back-end/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-animate": "^1.6.10",
+    "angular-base64": "^2.0.5",
+    "angular-base64-upload": "^0.1.23",
+    "angular-css": "^1.0.8",
+    "angular-messages": "^1.6.10",
+    "angular-route": "^1.6.6",
+    "angular-utf8-base64": "0.0.5",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "express-validator": "^5.1.2",
+    "font-awesome": "^4.7.0",
+    "highcharts": "^6.1.0",
+    "highcharts-exporting": "^0.1.7",
+    "mysql": "^2.15.0"
+  }
+}

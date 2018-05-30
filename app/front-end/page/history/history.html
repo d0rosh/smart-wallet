@@ -1,0 +1,61 @@
+<div class="container">
+	<div class="row">
+        <div class="col-md-6">
+			<button ng-click="ctrl.send(1)" class="btns-s">1</button>
+			<button ng-click="ctrl.send(2)" class="btns-s">2</button>
+			<button ng-click="ctrl.send(3)" class="btns-s">3</button>
+			<button ng-click="ctrl.send(4)" class="btns-s">4</button>
+			<button ng-click="ctrl.send(5)" class="btns-s">5</button>
+			<button ng-click="ctrl.send(6)" class="btns-s">6</button>
+			<button ng-click="ctrl.send(7)" class="btns-s">7</button>
+			<button ng-click="ctrl.send(8)" class="btns-s">8</button>
+			<button ng-click="ctrl.send(9)" class="btns-s">9</button>
+			<button ng-click="ctrl.send(10)" class="btns-s">10</button>
+			<button ng-click="ctrl.send(11)" class="btns-s">11</button>
+			<button ng-click="ctrl.send(12)" class="btns-s">12</button>
+			<button ng-click="ctrl.send('all')" class="btns-s">All</button>
+		</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<table class="table table-bordered">
+    			<thead>
+                    <tr>
+                        <td ng-click="ctrl.sort_by_date()">Date</td>
+                        <td ng-click="ctrl.sort_by_sum()">Sum</td>
+                        <td>
+                        	Type
+                        	<select ng-model="ctrl.type_id" ng-options="type.id as type.name for type in ctrl.types" ng-change="ctrl.select_type()" ng-focus="ctrl.type_chosen = false">
+                        		<option value="" ng-show="ctrl.type_chosen">Not chosen</option>
+							</select>
+                        </td>
+                        <td>
+                        	Sourse
+                        	<select ng-model="ctrl.sourse_id" ng-options="sourse.id as sourse.name for sourse in ctrl.sourse" ng-change="ctrl.select_sourse()" ng-focus="ctrl.sourse_chosen = false">
+                        		<option value="" ng-show="ctrl.sourse_chosen">Not chosen</option>
+							</select>
+                        </td>
+                        <td>
+                        	Category
+                        	<select ng-model="ctrl.category_id" ng-options="category.id as category.name for category in ctrl.category" ng-change="ctrl.select_category()" ng-focus="ctrl.category_chosen = false">
+                        		<option value="" ng-show="ctrl.category_chosen">Not chosen</option>
+							</select>
+                        	</td>
+                        <td>Notes</td>
+                    </tr>
+                </thead>
+                <tr ng-repeat="data in ctrl.data">
+                    <td>{{data._formatted_date}}</td>
+                    <td>{{data._sum}}</td>
+                    <td>{{data._type}}</td>
+                    <td>{{data.sourse}}</td>
+                    <td>{{data.category}}</td>
+                    <td>{{data.notes}}</td>
+                </tr>
+    		</table>
+    	</div>
+    </div>
+</div>
+
+

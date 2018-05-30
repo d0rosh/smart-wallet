@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title ng-bind="title"></title>
+    <script src="/angular.min.js"></script>
+    <script src="/angular-route.min.js"></script>
+    <script src="/dist/angular-base64-upload.min.js"></script>
+	<script src="/angular-animate.min.js"></script>
+	<script src="/angular-css.min.js"></script>
+    <script src="/js/highcharts.js"></script>
+    <script src="/exporting.js"></script>
+    <script src="/angular-messages.min.js"></script>
+    <script src="main.js"></script>
+    <script src="configuration/route.js"></script>
+    <script src="page/home/home.js"></script>
+    <script src="page/account/account.js"></script>
+    <script src="page/history/history.js"></script>
+    <script src="page/statistics/statistics.js"></script>
+    <script src="page/authorization/authorization.js"></script>
+    <script src="services/authServices.js"></script>
+    <script src="services/budgetServices.js"></script>
+    <script src="services/userDataServices.js"></script>
+    <script src="directives/loader/loader.js"></script>
+    <script src="directives/hint/hint.js"></script>
+    <script src="directives/quotes/quotes.js"></script>
+    <script src="directives/img-default/img-default.js"></script>
+    <script src="filter/filter.js"></script>
+    <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animate.css">
+	
+</head>
+<body>
+	<div class="wrapper" ng-controller="myctrl as ctrl">
+		<div class="toggleOverlay" ng-if="ctrl.toggleOverlay"></div>
+		<header ng-show="showhead">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-1 col-sm-6 col-xs-6">
+						<div class="menu_btn" ng-click="ctrl.toggleMenu()">
+							<i class="fa fa-bars"></i>
+						</div>
+					</div>	
+					<div class="col-md-1 col-sm-6 col-md-push-10 col-xs-6">
+						<div class="logout_btn" ng-click="ctrl.logout()">
+							<i class="fa fa-sign-out" aria-hidden="true"></i>
+						</div>
+					</div>
+					<div class="col-md-10 col-sm-12 col-md-pull-1 col-xs-12 head_budget">
+						<div class="row">
+							<div class="col-md-3 col-sm-12"><span>Total budget: <span>{{ budget.total_budget }}</span> uah</span></div>
+							<div class="col-md-3 col-sm-12"><span>Month Incomes: <span>{{ budget.this_month_income }}</span> uah</span></div>
+							<div class="col-md-3 col-sm-12"><span>Month expenses: <span>{{ budget.this_month_outcome }}</span> uah</span></div>
+							<div class="col-md-3 col-sm-12"><span>Month balance: <span>{{ budget.this_month_balance }}</span> uah</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<nav>
+				<div class="user-photo">
+					<img ng-src="{{userImg}}" alt="avatar" img-default>
+				</div>
+				<button class="closeMenu" ng-click="ctrl.toggleMenu()">
+			    	<i class="fa fa-times" aria-hidden="true"></i>
+			    </button>
+			    <ul ng-click="ctrl.toggleMenu()">
+			     	<li><a href="#!/">Home</a></li>
+					<li><a href="#!/account">Account</a></li>
+					<li><a href="#!/history">History</a></li>
+					<li><a href="#!/statistics">Statistics</a></li>
+			    </ul>
+			</nav>
+		</header>
+		<ng-view></ng-view>
+	</div>
+</body>
+</html>

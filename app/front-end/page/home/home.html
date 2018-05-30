@@ -1,0 +1,95 @@
+<div class="container">
+	<hint message="ctrl.hintMessage"></hint>
+	<div class="row">
+		<div class="col-md-12 wrap-income">
+			<div ng-click="ctrl.makeAnAttach()" ng-class="{activeItem : ctrl.activeBtnIncome , defActiveItem: !ctrl.activeBtnIncome }" class="h_income"><div class="plus"></div></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 wrap-category">
+			<div class="wrap-circle" ng-repeat="category in ctrl.category">
+				<div ng-click="ctrl.activeCategory(category)" class="h_category" ng-class="{activeItem : ctrl.isSelected(category), defActiveItem : !ctrl.isSelected(category)}">
+					<span>{{::category._name}}</span>
+					<img ng-src={{::category.src}} alt="icon">
+				</div>
+				<span>{{::category._sum}}:грн </span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 wrap-save">
+			<div class="wrap-circle" ng-repeat="save in ctrl.saves">
+				<div ng-click="ctrl.activeSave(save)" class="h_saves">
+					<span>{{::save._name}}</span>
+					<img ng-src={{::save.src}} alt="icon">
+				</div>
+				<span>{{::save._sum }}:грн </span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- popap form income -->
+<div class="wrap-popap popap_icome" ng-if="ctrl.flugIncome">
+	<div class="popap">
+		<form novalidate name="incomeForm" ng-submit="ctrl.sendIncome(incomeForm)">
+			<div class="popap-content">
+				<div class="wrapper-select">
+					<select ng-model="ctrl.incomeQuery.save_id" name="saveSelect" required> 
+						<option value="">Виберіть один варіант</option>
+						<option ng-repeat="saves in ctrl.saves" value="{{saves.id}}">
+							{{saves._name}}
+						</option>
+				    </select>
+				</div>
+				<span ng-if="incomeForm.saveSelect.$error.required && incomeForm.saveSelect.$touched">Потрібно вибрати</span>
+
+		    	<input type="text" name="incomeSum" ng-model="ctrl.incomeQuery.money" placeholder="Введіть суму" ng-pattern="/^\d*(\.\d+)?$/" required>
+		    	<span ng-if="incomeForm.incomeSum.$error.required && incomeForm.incomeSum.$touched">Введіть суму</span>
+		    	<span ng-if="incomeForm.incomeSum.$error.pattern && incomeForm.incomeSum.$touched">Невірно заповнено</span>
+
+		    	<textarea ng-model="ctrl.incomeQuery.notes" placeholder="Місце для нотаток" name="notes" required></textarea>
+				<span ng-if="incomeForm.notes.$error.required && incomeForm.notes.$touched">Потрібно заповнити</span>
+
+		    	<div class="wrapper-select">
+			    	<select ng-model="ctrl.incomeQuery.sourse_id" name="sourseSelect" required> 
+				    	<option value="">Виберіть один варіант</option>
+						<option ng-repeat="sourse in ctrl.sourses" value="{{sourse.id}}">
+							{{sourse._name}}
+						</option>
+				    </select>
+				    <span ng-if="incomeForm.sourseSelect.$error.required && incomeForm.sourseSelect.$touched">Потрібно вибрати</span>
+		    	</div>
+			</div>
+			<div class="popap-action">
+				<button ng-disabled="incomeForm.$invalid" type="submit" 
+				ng-class="{dangerColor: !incomeForm.$valid}">Ok</button>
+				<button ng-click="ctrl.cancelIncome()">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- ********* -->
+<!-- popap form outcome -->
+<div class="wrap-popap popap_save" ng-if="ctrl.flugSave">
+	<div class="popap">
+		<form novalidate name="outcomeForm" ng-submit="ctrl.sendOutcome(outcomeForm)">
+			<div class="popap-content">
+				<span class="name_save">{{ctrl.outcomeData.save_name}}</span>
+				<input type="text" name="outcomeSum" ng-model="ctrl.outcomeData._sum" placeholder="Введіть суму"
+				ng-pattern="/^\d*(\.\d+)?$/" required>
+				<span ng-if="outcomeForm.outcomeSum.$error.required && outcomeForm.outcomeSum.$touched">Введіть суму</span>
+		    	<span ng-if="outcomeForm.outcomeSum.$error.pattern && outcomeForm.outcomeSum.$touched">Невірно заповнено</span>
+
+				<input type="text" ng-model="ctrl.outcomeData.notes" name="notes" placeholder="Місце для нотаток" required>
+				<span ng-if="outcomeForm.notes.$error.required && outcomeForm.notes.$touched">Потрібно заповнити</span>
+			</div>
+			<div class="popap-action">
+				<button ng-disabled="outcomeForm.$invalid" 
+				ng-class="{dangerColor: !outcomeForm.$valid}">Ok</button>
+				<button ng-click="ctrl.cancelOutcome()">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- ******** -->
